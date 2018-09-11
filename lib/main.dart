@@ -506,7 +506,6 @@ class LoginState extends State<Login> {
       savePref(data['name'], data['email'], data['password'], data['telpon']);
 
       setState(() {
-        print("$data");
         cekLogin = CekLogin.signIn;
       });
     } else {}
