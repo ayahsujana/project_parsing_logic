@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:parsingjson/custom.dart';
 import 'package:parsingjson/dataprofil.dart';
+import 'package:parsingjson/register.dart';
 import 'dart:async';
 import 'package:path/path.dart' as path;
 import 'package:image_picker/image_picker.dart';
@@ -76,7 +77,6 @@ class MyAppState extends State<MyApp> {
   }
 
   saveLogout() async {
-    
     setState(() {
       widget.signOut();
     });
@@ -223,7 +223,6 @@ class AddNewImageFromGalleryState extends State<AddNewImageFromGallery> {
     final formImage = _formKey.currentState;
     if (formImage.validate()) {
       formImage.save();
-      //addImageToServer();
     }
   }
 
@@ -299,7 +298,7 @@ class AddNewImageFromGalleryState extends State<AddNewImageFromGallery> {
       child: TextField(
         controller: _textController,
         decoration: InputDecoration(
-          labelText: 'Your image name',
+          labelText: 'Name of image', fillColor: Colors.white,
           filled: true,
           contentPadding: const EdgeInsets.all(8.0),
         ),
@@ -317,7 +316,7 @@ class AddNewImageFromGalleryState extends State<AddNewImageFromGallery> {
             padding: EdgeInsets.all(20.0),
             onPressed: _chooseImage,
             child: Text(
-              'Choose Image',
+              'Gallery',
               textAlign: TextAlign.center,
             ),
             color: Colors.white30,
@@ -338,7 +337,7 @@ class AddNewImageFromGalleryState extends State<AddNewImageFromGallery> {
             padding: EdgeInsets.all(20.0),
             onPressed: _uploadImageToServer,
             child: Text(
-              'Upload Image',
+              'Upload',
               textAlign: TextAlign.center,
             ),
             color: Colors.white30,
@@ -352,8 +351,6 @@ class AddNewImageFromGalleryState extends State<AddNewImageFromGallery> {
   _chooseImage() async {
     _imageFile = await ImagePicker.pickImage(
       source: ImageSource.gallery,
-      maxWidth: 1080.0,
-      maxHeight: 1920.0,
     );
 
     final tempDir = await getTemporaryDirectory();
@@ -579,6 +576,14 @@ class LoginState extends State<Login> {
                     ),
                     ButtonClick(
                       labelText: "Register",
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => Register()
+                        ));
+                      },
+                    ),
+                    ButtonClick(
+                      labelText: "Forgot Password",
                       onPressed: () {},
                     )
                   ],
