@@ -29,6 +29,17 @@ class RegisterState extends State<Register> {
         child: new ListView(
           shrinkWrap: true,
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Hero(
+                tag: 'hero',
+                child: CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  radius: 75.0,
+                  child: Image.asset('img/logo.png'),
+                ),
+              ),
+            ),
             EditText(
               keyboardType: TextInputType.text,
               onSaved: (e) => name = (e),
@@ -58,23 +69,18 @@ class RegisterState extends State<Register> {
               labelText: "Sign Up",
               onPressed: daftar,
             ),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    FlatButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(
-                        "Already have account? Click here",
-                        style: TextStyle(
-                            fontStyle: FontStyle.normal, color: Colors.blue),
-                      ),
-                    )
-                  ]),
-            )
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "Already have account? Click here",
+                  style: TextStyle(
+                      fontStyle: FontStyle.normal, color: Colors.black54),
+                ),
+              )
+            ])
           ],
         ),
       ),
