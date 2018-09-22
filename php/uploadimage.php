@@ -1,6 +1,11 @@
 <?php
 
-include "index.php";
+define ("HOST","localhost");
+define ("DB","sampulbo_belajarparsinglogic");
+define ("USER","sampulbo_belajarparsinglogic");
+define ("PASS","belajarparsinglogic");
+
+$con = mysqli_connect(HOST,USER,PASS,DB);
 
 $image = $_FILES['image']['name'];
 $title = $_POST['title'];
