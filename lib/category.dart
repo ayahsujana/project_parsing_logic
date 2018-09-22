@@ -4,8 +4,8 @@ import 'dart:io';
 
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
-import 'package:parsingjson/model.dart';
 import 'package:http/http.dart' as http;
+import 'package:parsingjson/models/model.dart';
 import 'package:path/path.dart' as path;
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Picture;
@@ -28,7 +28,7 @@ class _CategoryProductState extends State<CategoryProduct> {
   }
 
   _fetchData() async {
-    final response = await http.get('http://sampulbox.com/parsinglogic/');
+    final response = await http.get('http://sampulbox.com/parsinglogic/category.php');
 
     if (response.statusCode == 200) {
       print("Data ditemukan");
@@ -399,7 +399,7 @@ class AddNewImageFromGalleryState extends State<AddNewImageFromGallery> {
       var stream =
           http.ByteStream(DelegatingStream.typed(_imageFile.openRead()));
       var length = await _imageFile.length();
-      var url = Uri.parse('http://sampulbox.com/parsinglogic/insert.php');
+      var url = Uri.parse('http://sampulbox.com/parsinglogic/uploadimage.php');
 
       var request = http.MultipartRequest("POST", url);
 

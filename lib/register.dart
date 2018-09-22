@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:parsingjson/custom.dart';
+import 'package:parsingjson/models/custom.dart';
 
 class Register extends StatefulWidget {
   RegisterState createState() => RegisterState();
