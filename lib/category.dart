@@ -28,7 +28,8 @@ class _CategoryProductState extends State<CategoryProduct> {
   }
 
   _fetchData() async {
-    final response = await http.get('http://sampulbox.com/parsinglogic/category.php');
+    final response =
+        await http.get('http://sampulbox.com/parsinglogic/category.php');
 
     if (response.statusCode == 200) {
       print("Data ditemukan");
@@ -133,14 +134,11 @@ class ListItem extends StatelessWidget {
           elevation: 3.0,
           child: SingleChildScrollView(
             child: InkWell(
-              onTap: ()=> Navigator.push(context, MaterialPageRoute(
-                builder: (context)=> FullScreenImage(url+modelData.file)
-              )),
-              // {
-              //   Navigator.of(context).push(MaterialPageRoute(
-              //     builder: (BuildContext context) => FullScreenImage(url+modelData.file)
-              //   ));
-              // },
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          FullScreenImage(url + modelData.file))),
               child: Column(
                 children: <Widget>[
                   Padding(
@@ -148,16 +146,11 @@ class ListItem extends StatelessWidget {
                     child: Hero(
                       tag: modelData,
                       child: FadeInImage(
-                        image: NetworkImage(url+modelData.file),
+                        image: NetworkImage(url + modelData.file),
                         fit: BoxFit.cover,
                         placeholder: AssetImage('img/picture.png'),
                         height: 200.0,
-                          width: double.infinity,
-                        // placeholder: 'img/picture.png',
-                        // image: url + dataListItem.file,
-                        // fit: BoxFit.cover,
-                        // height: 200.0,
-                        // width: double.infinity,
+                        width: double.infinity,
                       ),
                     ),
                   ),
@@ -323,6 +316,8 @@ class AddNewImageFromGalleryState extends State<AddNewImageFromGallery> {
   _chooseImage() async {
     _imageFile = await ImagePicker.pickImage(
       source: ImageSource.gallery,
+      maxWidth: 1080.0,
+      maxHeight: 1920.0,
     );
 
     final tempDir = await getTemporaryDirectory();
@@ -449,11 +444,10 @@ class FullScreenImage extends StatelessWidget {
   FullScreenImage(this.modelData);
 
   final LinearGradient backgroundGradient = LinearGradient(
-    colors: [Color(0x10000000), Color(0x30000000)],
-    begin: Alignment.topRight,
-    end: Alignment.bottomLeft
-  );
-  
+      colors: [Color(0x10000000), Color(0x30000000)],
+      begin: Alignment.topRight,
+      end: Alignment.bottomLeft);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -467,13 +461,12 @@ class FullScreenImage extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: Hero(
-                  tag: modelData,
-                  child: FadeInImage(
-                    image: NetworkImage(modelData),
-                     fit: BoxFit.cover,
-                     placeholder: AssetImage('img/picture.png'),
-                  )
-                ),
+                    tag: modelData,
+                    child: FadeInImage(
+                      image: NetworkImage(modelData),
+                      fit: BoxFit.cover,
+                      placeholder: AssetImage('img/picture.png'),
+                    )),
               ),
               Align(
                 alignment: Alignment.topCenter,
@@ -485,12 +478,14 @@ class FullScreenImage extends StatelessWidget {
                       elevation: 0.0,
                       backgroundColor: Colors.transparent,
                       leading: IconButton(
-                        icon: Icon(Icons.close, color: Colors.blue,),
-                        onPressed: (){
+                        icon: Icon(
+                          Icons.close,
+                          color: Colors.blue,
+                        ),
+                        onPressed: () {
                           Navigator.pop(context);
                         },
                       ),
-                      
                     )
                   ],
                 ),

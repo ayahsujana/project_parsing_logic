@@ -12,6 +12,20 @@ class RegisterState extends State<Register> {
   final _fromkey = GlobalKey<FormState>();
   String email, password, name, phone;
 
+  var phoneNumber = FocusNode();
+  var emailAddress = FocusNode();
+  var passwordFocus = FocusNode();
+
+  focusPhoneNumber(){
+    FocusScope.of(context).requestFocus(phoneNumber);
+  }
+  focusEmailAddress(){
+    FocusScope.of(context).requestFocus(emailAddress);
+  }
+  focusPassword(){
+    FocusScope.of(context).requestFocus(passwordFocus);
+  }
+
   void daftar() {
     final form = _fromkey.currentState;
     if (form.validate()) {
@@ -41,24 +55,30 @@ class RegisterState extends State<Register> {
               ),
             ),
             EditText(
+              onFieldSubmitted: (e){focusPhoneNumber();},
               keyboardType: TextInputType.text,
               onSaved: (e) => name = (e),
               labelText: "Full Name",
               errorText: "Please input your full name",
             ),
             EditText(
+              focusNode: phoneNumber,
+              onFieldSubmitted: (e){focusEmailAddress();},
               keyboardType: TextInputType.phone,
               onSaved: (e) => phone = (e),
               labelText: "Phone Number",
               errorText: "Please input your phone number",
             ),
             EditText(
+              focusNode: emailAddress,
+              onFieldSubmitted: (e){focusPassword();},
               keyboardType: TextInputType.emailAddress,
               onSaved: (e) => email = (e),
               labelText: "Email Address",
               errorText: "Please input your email address",
             ),
             EditText(
+              focusNode: passwordFocus,
               obscureText: true,
               keyboardType: TextInputType.text,
               onSaved: (e) => password = (e),

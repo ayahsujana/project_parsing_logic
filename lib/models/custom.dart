@@ -7,9 +7,11 @@ class EditText extends StatelessWidget {
   final String errorText;
   final String labelText;
   final FocusNode focusNode;
+  final ValueChanged<String> onFieldSubmitted;
   final bool obscureText;
   EditText(
       {this.focusNode,
+      this.onFieldSubmitted,
       this.controller,
       this.onSaved,
       this.keyboardType,
@@ -21,6 +23,7 @@ class EditText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        onFieldSubmitted: onFieldSubmitted,
         focusNode: focusNode,
         controller: controller,
         obscureText: obscureText,

@@ -147,6 +147,11 @@ class LoginState extends State<Login> {
   final _keySnack = GlobalKey<ScaffoldState>();
   String email, password;
   var isLoading = true;
+  var passwordFocus = FocusNode();
+
+  nextPasswordFocus(){
+    FocusScope.of(context).requestFocus(passwordFocus);
+  }
 
   void checkForm() {
     final formKey = _key.currentState;
@@ -256,12 +261,14 @@ class LoginState extends State<Login> {
                       ),
                     ),
                     EditText(
+                      onFieldSubmitted: (e) {nextPasswordFocus();},
                       keyboardType: TextInputType.emailAddress,
                       onSaved: (e) => email = (e),
                       labelText: "Email Address",
                       errorText: "Please input your email address",
                     ),
                     EditText(
+                      focusNode: passwordFocus,
                       obscureText: true,
                       keyboardType: TextInputType.text,
                       onSaved: (e) => password = (e),
