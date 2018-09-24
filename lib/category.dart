@@ -120,8 +120,8 @@ class _CategoryProductState extends State<CategoryProduct> {
 
 class ListItem extends StatelessWidget {
   final url = "http://sampulbox.com/parsinglogic/image/";
-  final ModelData dataListItem;
-  ListItem(this.dataListItem);
+  final ModelData modelData;
+  ListItem(this.modelData);
 
   @override
   Widget build(BuildContext context) {
@@ -133,25 +133,38 @@ class ListItem extends StatelessWidget {
           elevation: 3.0,
           child: SingleChildScrollView(
             child: InkWell(
+              onTap: ()=> Navigator.push(context, MaterialPageRoute(
+                builder: (context)=> FullScreenImage(url+modelData.file)
+              )),
+              // {
+              //   Navigator.of(context).push(MaterialPageRoute(
+              //     builder: (BuildContext context) => FullScreenImage(url+modelData.file)
+              //   ));
+              // },
               child: Column(
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Hero(
-                      tag: dataListItem,
-                      child: FadeInImage.assetNetwork(
-                        placeholder: 'img/picture.png',
-                        image: url + dataListItem.file,
+                      tag: modelData,
+                      child: FadeInImage(
+                        image: NetworkImage(url+modelData.file),
                         fit: BoxFit.cover,
+                        placeholder: AssetImage('img/picture.png'),
                         height: 200.0,
-                        width: double.infinity,
+                          width: double.infinity,
+                        // placeholder: 'img/picture.png',
+                        // image: url + dataListItem.file,
+                        // fit: BoxFit.cover,
+                        // height: 200.0,
+                        // width: double.infinity,
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      dataListItem.nameGambar,
+                      modelData.nameGambar,
                       style: TextStyle(
                           fontSize: 16.0, fontWeight: FontWeight.bold),
                     ),
@@ -428,5 +441,64 @@ class AddNewImageFromGalleryState extends State<AddNewImageFromGallery> {
       _showSnackBar("An uploaded image has error");
       debugPrint('Error $e');
     }
+  }
+}
+
+class FullScreenImage extends StatelessWidget {
+  final modelData;
+  FullScreenImage(this.modelData);
+
+  final LinearGradient backgroundGradient = LinearGradient(
+    colors: [Color(0x10000000), Color(0x30000000)],
+    begin: Alignment.topRight,
+    end: Alignment.bottomLeft
+  );
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SizedBox.expand(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: backgroundGradient,
+          ),
+          child: Stack(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.center,
+                child: Hero(
+                  tag: modelData,
+                  child: FadeInImage(
+                    image: NetworkImage(modelData),
+                     fit: BoxFit.cover,
+                     placeholder: AssetImage('img/picture.png'),
+                  )
+                ),
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    AppBar(
+                      elevation: 0.0,
+                      backgroundColor: Colors.transparent,
+                      leading: IconButton(
+                        icon: Icon(Icons.close, color: Colors.blue,),
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
+                      ),
+                      
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
